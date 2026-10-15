@@ -45,7 +45,7 @@ def state():
 def demo():
  with db() as c:
   if c.execute('SELECT COUNT(*) FROM orders').fetchone()[0]:raise HTTPException(409,'Dane są już w bazie. Import demonstracyjny działa tylko w pustej bazie.')
-  count=insert_orders(c,json.loads((ROOT/'data/demo-orders.json').read_text()),'Przykład · 24.08.2026')
+  count=insert_orders(c,json.loads((ROOT/'data/demo-orders.json').read_text(encoding='utf-8')),'Przykład · 24.08.2026')
  return {'count':count}
 @app.post('/api/import')
 async def upload(request:Request):
